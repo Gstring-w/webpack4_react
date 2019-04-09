@@ -1,5 +1,3 @@
-# webpack4_react
-
 ##### package.json 使用以下版本
 
 ```
@@ -68,6 +66,8 @@ npm i @babel/core babel-loader@8 @babel/preset-env @babel/preset-react
 ```
 
 - 新建.babelrc
+
+babel7之后的babel 名称都改为@babel...
 ```
 {
     "presets": [
@@ -99,6 +99,125 @@ module.exports = {
 }
 ```
 
+#### 热模块更新
 - 在src目录下创建index.html(作为html模板)
 ```
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>react</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+
+```
+- 安装
+```
+npm i react-hot-loader -S
+```
+- 重新编辑/src/App.js
+```
+import React,{Compoent} from 'react';
+import { hot } from "react-hot-loader";
+
+
+class App extends Component{
+    return (
+        <div>
+            hello world!!
+        </div>
+    )
+}
+export default hot(module)(App)
+
+```
+- 编辑babelrc
+```
+{
+    "presets":["@babel/preset-env","@babel/preset-react"],
+    "plugins":["react-hot-loader/babel"]
+}
+```
+
+
+#### 加载scss
+- 安装
+```
+npm install style-loader css-loader sass-loader node-sass -D
+```
+- 在webpack.config.js添加配置
+```
+const path = require("path")
+module.exports = {
+    entry:{
+        app:"./src/index.js"
+    },
+    output:{
+        filename:"[name].js",
+        path:path.resolve(__dirname,"./dist")
+    },
+    module:{
+        rules:[
+            {
+                test:/\.js$/,
+                exclude:/node_modules/,
+                use:['babel-loader']
+            },
+            {
+                test:/\.scss$/,
+                use:['style-loader','css-loader',"sass-loader"]
+            }
+        ]
+    }
+}
+```
+
+#### 添加postCss
+
+- 安装
+```
+npm i postcss postcss-loader autoprefixer cssnano postcss-cssnext -D
+```
+- 在webpack.config.js配置
+```
+const path = require("path")
+module.exports = {
+    entry:{
+        app:"./src/index.js"
+    },
+    output:{
+        filename:"[name].js",
+        path:path.resolve(__dirname,"./dist")
+    },
+    module:{
+        rules:[
+            {
+                test:/\.js$/,
+                exclude:/node_modules/,
+                use:['babel-loader']
+            },
+            {
+                test:/\.scss$/,
+                use:[
+                'style-loader',
+                'css-loader',
+                {
+                    loader:'postcss-loader',
+                    options:{
+                        ident:'postcss'
+                        plugins:[
+                            require('autoprefixer')()
+                        ]
+                    }
+                },
+                "sass-loader"]
+            }
+        ]
+    }
+}
 ```
