@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack --mode development --config  ./config/webpack.config.js"
+    "dev": "webpack --mode development --config  ./config/webpack.config.js",
+    "server": "node .config\nodewebpackDevMiddleware.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,7 +19,9 @@
     "clean-webpack-plugin": "^2.0.1",
     "css-loader": "^2.1.1",
     "cssnano": "^4.1.10",
+    "express": "^4.16.4",
     "glob-all": "^3.1.0",
+    "ignore-loader": "^0.1.2",
     "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.11.0",
     "postcss": "^7.0.14",
@@ -28,9 +31,13 @@
     "purifycss-webpack": "^0.7.0",
     "react-hot-loader": "^4.8.3",
     "sass-loader": "^7.1.0",
+    "serviceworker-webpack-plugin": "^1.0.1",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0",
-    "webpack-deep-scope-plugin": "^1.6.0"
+    "webpack-deep-scope-plugin": "^1.6.0",
+    "webpack-dev-middleware": "^3.6.2",
+    "webpack-hot-middleware": "^2.24.3",
+    "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
     "html-webpack-plugin": "^3.2.0",

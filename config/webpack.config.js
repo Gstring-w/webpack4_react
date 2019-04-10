@@ -7,6 +7,9 @@ const glob = require("glob-all");
 const PurifyCSSPlugin = require("purifycss-webpack"); //css tree
 const WebpackDeepScopeAnalysisPlugin = require("webpack-deep-scope-plugin")
   .default;
+
+// const ServiceWorkerWebpackPlugin = require("serviceworker-webpack-plugin"); // serviceWorker
+
 module.exports = {
   entry: {
     app: "./src/index.js"
@@ -39,6 +42,9 @@ module.exports = {
       }
     ]
   },
+  devServer: {
+    hot: true
+  },
   plugins: [
     new MiniCssExtractPlugin({
       filename: "[name].css",
@@ -53,6 +59,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html"
     }),
+    // new ServiceWorkerWebpackPlugin({
+    //   entry: path.join(__dirname, "./sw.js")
+    // }),
     new CleanWebpackPlugin(),
     new Webpack.HotModuleReplacementPlugin(),
     new WebpackDeepScopeAnalysisPlugin()
